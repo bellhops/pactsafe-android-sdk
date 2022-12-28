@@ -30,7 +30,10 @@ android {
             buildConfigField "String", "SITE_ACCESS_ID", "\"YOUR SITE ACCESS KEY HERE\""
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
