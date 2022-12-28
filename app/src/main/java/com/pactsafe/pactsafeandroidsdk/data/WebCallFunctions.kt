@@ -4,5 +4,5 @@ import com.pactsafe.pactsafeandroidsdk.PSLogger
 
 
 fun handleThrowable(throwable: Throwable) {
-    PSLogger.errorLog(throwable, throwable.localizedMessage)
+    PSLogger.errorLog("PSLogger", throwable, throwable.localizedMessage)
 }

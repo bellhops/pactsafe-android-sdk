@@ -3,19 +3,19 @@ package com.pactsafe.pactsafeandroidsdk.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.pactsafe.pactsafeandroidsdk.PSApp
 import com.pactsafe.pactsafeandroidsdk.R
 import com.pactsafe.pactsafeandroidsdk.data.ApplicationPreferences
+import com.pactsafe.pactsafeandroidsdk.data.ApplicationPreferencesImp
 import com.pactsafe.pactsafeandroidsdk.models.EventType
 import com.pactsafe.pactsafeandroidsdk.models.PSGroup
 import com.pactsafe.pactsafeandroidsdk.models.PSSigner
 import com.pactsafe.pactsafeandroidsdk.models.PSSignerID
 import com.pactsafe.pactsafeandroidsdk.util.SIGNER
-import com.pactsafe.pactsafeandroidsdk.util.injector
 import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
 
 abstract class PSClickWrapActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ abstract class PSClickWrapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val appPreferences: ApplicationPreferences = injector()
+        val appPreferences: ApplicationPreferences = ApplicationPreferencesImp(this)
 
         /*
         Here we want to ensure that if the group pre-loads in time for onCreate,
@@ -40,7 +40,7 @@ abstract class PSClickWrapActivity : AppCompatActivity() {
             disposables.add(PSApp.hasPreloadedObservable.subscribe({
                 onPreLoaded(it)
             }, {
-                Timber.e(it, "Failed to Load data.")
+                Log.e(TAG, "Failed to Load data.", it)
             }))
         }
 
@@ -61,7 +61,7 @@ abstract class PSClickWrapActivity : AppCompatActivity() {
                 .subscribe({
                     onSignedStatusFetched(it)
                 }, {
-                    Timber.e(it, "There was an error fetching the data. ${it.localizedMessage}")
+                    Log.e(TAG, "There was an error fetching the data. ${it.localizedMessage}", it)
                 })
         )
     }
@@ -74,7 +74,7 @@ abstract class PSClickWrapActivity : AppCompatActivity() {
                         onSendAgreedComplete(it.headers()["X-Download-URL"] ?: "")
                     }
                 }, {
-                    Timber.e("There was an error: ${it.localizedMessage}")
+                    Log.e(TAG, "There was an error: ${it.localizedMessage}", it)
                 })
         )
 
@@ -130,7 +130,7 @@ abstract class PSClickWrapActivity : AppCompatActivity() {
     companion object {
 
         const val TYPE = "type"
-
+        const val TAG = "PSClickWrapActivity"
         inline fun <reified T> create(context: Context, clazz: Class<T>, type: ClickWrapType) =
             Intent(context, clazz).apply {
                 putExtra(

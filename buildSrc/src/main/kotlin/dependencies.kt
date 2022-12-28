@@ -52,7 +52,6 @@ object Dependencies {
         const val rxKotlin = "2.4.0"
         const val rxAndroid = "2.1.1"
         const val serializationVersion = "0.13.0"
-        const val timber = "4.7.1"
     }
 
     const val androidCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
@@ -81,7 +80,6 @@ object Dependencies {
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val serializationRuntime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.serializationVersion}"
-    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val viewModelScope = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 }
 

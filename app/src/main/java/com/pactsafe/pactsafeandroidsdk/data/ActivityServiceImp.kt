@@ -1,15 +1,15 @@
 package com.pactsafe.pactsafeandroidsdk.data
 
+import android.content.Context
 import com.pactsafe.pactsafeandroidsdk.models.PSGroup
 import com.pactsafe.pactsafeandroidsdk.models.PSSigner
 import com.pactsafe.pactsafeandroidsdk.models.PSSignerID
-import com.pactsafe.pactsafeandroidsdk.util.injector
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 
-class ActivityServiceImp(private val activityAPI: ActivityAPI) :
+class ActivityServiceImp(private val context: Context, private val activityAPI: ActivityAPI) :
     ActivityService {
 
     override fun preloadActivity(groupKey: String, siteAccessKey: String): Single<PSGroup> {
@@ -25,7 +25,7 @@ class ActivityServiceImp(private val activityAPI: ActivityAPI) :
     }
 
     override fun sendActivity(signer: PSSigner, group: PSGroup?, et: String): Single<Response<Unit>> {
-        val applicationPreferences: ApplicationPreferences = injector()
+        val applicationPreferences: ApplicationPreferences = ApplicationPreferencesImp(context)
         return activityAPI.sendActivity(
             mapOf(
                 "cid" to group?.contract_ids,
@@ -45,7 +45,7 @@ class ActivityServiceImp(private val activityAPI: ActivityAPI) :
     }
 
     override fun fetchSignedStatus(signer: PSSignerID, group: PSGroup?): Single<Response<Map<String, Boolean>>> {
-        val applicationPreferences: ApplicationPreferences = injector()
+        val applicationPreferences: ApplicationPreferences = ApplicationPreferencesImp(context)
         return activityAPI.signedStatus(
             mapOf(
                 "sig" to signer,

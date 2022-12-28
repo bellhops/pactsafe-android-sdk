@@ -1,6 +1,7 @@
 package com.pactsafe.pactsafeandroidsdk.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import com.pactsafe.pactsafeandroidsdk.models.EventType
 import com.pactsafe.pactsafeandroidsdk.models.PSSigner
 import com.pactsafe.pactsafeandroidsdk.util.SIGNER
 import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
 
 class PSDialogFragment(private val contracts: Map<String, Boolean>, private val useBrowser: Boolean) :
     DialogFragment() {
@@ -42,7 +42,7 @@ class PSDialogFragment(private val contracts: Map<String, Boolean>, private val 
         compositeDisposable.add(psCheckBoxView.getCheckedSubscription().subscribe({
             submitButton.isEnabled = it
         }, {
-            Timber.e("There was an error subscribing to checkbox")
+            Log.e(TAG, "There was an error subscribing to checkbox")
         }))
 
         submitButton.setOnClickListener {
@@ -59,5 +59,8 @@ class PSDialogFragment(private val contracts: Map<String, Boolean>, private val 
     override fun onStop() {
         super.onStop()
         compositeDisposable.clear()
+    }
+    companion object {
+        const val TAG = "PSDialogFragment"
     }
 }

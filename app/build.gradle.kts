@@ -88,7 +88,6 @@ dependencies {
     implementation(Dependencies.retrofitConverter)
     implementation(Dependencies.androidCoroutines)
     implementation(Dependencies.ktxCore)
-    implementation(Dependencies.koin)
     implementation(Dependencies.rxJava)
     implementation(Dependencies.rxKotlin)
     implementation(Dependencies.rxAndroid)
@@ -99,6 +98,5 @@ dependencies {
     implementation(Dependencies.okHttp)
     implementation(Dependencies.okHttpLogging)
     implementation(Dependencies.serializationRuntime)
-    implementation(Dependencies.timber)
     implementation(Dependencies.material)
 }
